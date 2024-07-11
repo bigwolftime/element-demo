@@ -1,42 +1,37 @@
 <template>
   <div id="app">
-    <el-button type="primary" @click="fetchData">Fetch data</el-button>
-    <div v-if="loading">Loading...</div>
-    <div v-else>
-      <ul>
-        <li v-for="item in data">{{ item.title }}</li>
-      </ul>
-    </div>
+    <a-layout>
+      <a-layout-header>
+        <a-menu theme="dark" mode="horizontal" :style="{lineHeight: '64px'}">
+          <a-menu-item key="1">
+            <router-link to="/">首页</router-link>
+          </a-menu-item>
+          <a-menu-item key="2">
+            <router-link to="/users">用户列表</router-link>
+          </a-menu-item>
+          <a-menu-item key="3">
+            <router-link to="/login">登录</router-link>
+          </a-menu-item>
+        </a-menu>
+      </a-layout-header>
+
+      <a-layout-content style="padding: 50px">
+        <router-view></router-view>
+      </a-layout-content>
+
+      <a-layout-footer style="text-align: center">
+        Ant Design Vue Demo 2024 © Ant Design, Inc. All Rights Reserved.
+      </a-layout-footer>
+
+    </a-layout>
+
   </div>
 </template>
 
 <script>
-import axios from './axios';
+import {defineComponent} from "vue";
 
-export default {
-  name: 'App',
-  data() {
-    return {
-      loading: false,
-      data: []
-    };
-  },
-  methods: {
-    async fetchData() {
-      this.loading = true;
-      try {
-        const response = await axios.get('/posts')
-        this.data = response.data;
-      } catch (error) {
-        console.error(error);
-      } finally {
-        this.loading = false;
-      }
-    }
-  }
-}
+export default defineComponent({
+  name: "App"
+})
 </script>
-
-<style>
-@import 'element-plus/dist/index.css';
-</style>
